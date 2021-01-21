@@ -1,7 +1,7 @@
 const express = require("express")
 const session = require("express-session")
 const knexSessionStore = require("connect-session-knex")(session)
-//const routes = require("")
+const router = require("./routes/router")
 const dbConfig = require("./data/dbConfig")
 
 const server = express()
@@ -17,7 +17,7 @@ server.use(session({
         createtable: true
     })
 }))
-//server.use('/api',)
+server.use('/api', router)
 
 module.exports = server;
 

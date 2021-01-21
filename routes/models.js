@@ -5,7 +5,8 @@ module.exports = {
     find,
     findBy,
     findById,
-    findByName
+    findByName,
+    remove,
 }
 
 async function add(fruit){
@@ -22,15 +23,23 @@ function find(){
 function findBy(filter){
     return db("fruits")
         .select("id","name", "yummy")
+        .where(filter)
 }
 
 function findById(id){
     return db("fruits")
         .select("id","name","yummy")
+        .where({id})
 }
 
 function findByName(name){
     return db("fruits")
         .select("id", "name", "yummy")
         .where("name", name)
+}
+
+function remove(id){
+    return db("fruits")
+        .where("id", id)
+        .del()
 }
