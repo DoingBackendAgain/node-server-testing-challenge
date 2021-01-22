@@ -10,7 +10,7 @@ router.get("/fruits", async (req, res, next) => {
     try{
         model.find()
             .then((fruit)=> {
-                res.json(fruit)
+                res.status(200).json(fruit)
             })
      }
     catch(err){

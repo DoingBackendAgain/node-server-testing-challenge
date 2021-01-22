@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Node Server Testing Challenge",
   "scripts": {
-    "test": "jest --watch",
+    "test": "cross-env NODE_ENV=testing jest --no-watchman",
     "start": "nodemon --require dotenv/config index.js",
     "server": "nodemon --require dotenv/config index.js"
   },
