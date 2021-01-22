@@ -40,6 +40,6 @@ function findByName(name){
 
 function remove(id){
     return db("fruits")
-        .where("id", id)
+        .where({id})
         .del()
 }

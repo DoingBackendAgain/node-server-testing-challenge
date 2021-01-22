@@ -18,6 +18,24 @@ router.get("/fruits", async (req, res, next) => {
     }
 })
 
+router.get("/fruits/:id", async (req, res, next)=> {
+    try{
+        const id = req.params.id
+        const fruit = await model.findById(id)
+
+        if(fruit.length === 0){
+            return res.status(409).json({
+                message: "Theres no fruit with that id"
+            })
+        }
+        return res.json(fruit)
+
+    }
+    catch(err){
+        next(err)
+    }
+})
+
 router.post("/fruits", async (req,res, next)=> {
     try{
         const {name, yummy} = req.body
@@ -25,7 +43,7 @@ router.post("/fruits", async (req,res, next)=> {
 
         if(fruit){
             return res.status(409).json({
-                message: "this fruit is alreayd in the database"
+                message: "this fruit is already in the database"
             })
         }
 
@@ -46,15 +64,16 @@ router.delete("/fruits/:id", async (req, res, next)=> {
     try{
 
         id = req.params.id
-        const fruit = model.findById(id)
+        const fruit = await model.findById(id)
 
-        if(!fruit){
+        if(fruit.length === 0){
             res.status(404).json({
                 message: "There's no fruit with this Id"
             })
         }
         if(fruit){
             model.remove(id)
+            console.log(id, fruit)
             res.status(200).json({
                 message: "What the hell?!"
             })
